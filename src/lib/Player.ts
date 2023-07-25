@@ -4,36 +4,44 @@ class Player {
   private X;
   private Y;
   private ref;
-  private speed;
+  private speedUpX;
+  private speedUpY;
+  private maxSpeedUp;
+  private speedUp;
 
   constructor(ref: RefObject<HTMLDivElement>, speed = 10) {
     this.X = 0;
     this.Y = 0;
+    this.speedUpX = 0;
+    this.speedUpY = 0;
+    this.maxSpeedUp = 10;
+    this.speedUp = 1;
     this.ref = ref;
-    this.speed = speed;
   }
 
-  public moveUp = () => {
-    this.move(0, -this.speed);
-  };
-
-  public moveDown = () => {
-    this.move(0, this.speed);
-  };
-
-  public moveLeft = () => {
-    this.move(-this.speed, 0);
-  };
-
-  public moveRight = () => {
-    this.move(this.speed, 0);
-  };
-
   public moveVector = (vector: boolean[]) => {
-    if (vector[0]) this.moveUp();
-    if (vector[1]) this.moveDown();
-    if (vector[2]) this.moveLeft();
-    if (vector[3]) this.moveRight();
+    if (vector[0]) this.speedUpY -= this.speedUp;
+    if (vector[1]) this.speedUpY += this.speedUp;
+    if (vector[2]) this.speedUpX -= this.speedUp;
+    if (vector[3]) this.speedUpX += this.speedUp;
+
+    this.speedUpY = Math.max(
+      -this.maxSpeedUp,
+      Math.min(this.maxSpeedUp, this.speedUpY),
+    );
+    this.speedUpX = Math.max(
+      -this.maxSpeedUp,
+      Math.min(this.maxSpeedUp, this.speedUpX),
+    );
+
+    this.X += this.speedUpX;
+    this.Y += this.speedUpY;
+
+    this.speedUpX *= 0.95;
+    this.speedUpY *= 0.95;
+
+    if (this.ref.current)
+      this.ref.current.style.transform = `translate(${this.X}px, ${this.Y}px)`;
   };
 
   private move = (x: number, y: number) => {
