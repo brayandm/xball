@@ -14,9 +14,19 @@ export default function PlayerComponent() {
 
   useKeypress(keySet, setKeySet);
 
+  const [touch, setTouch] = useState(false);
+
   useEffect(() => {
     player.moveVector(keySet);
-  }, [keySet, player]);
+
+    const timeoutId = setTimeout(() => {
+      setTouch(!touch);
+    }, 1000 / 60);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [keySet, player, touch]);
 
   return <div ref={playerRef} className={styles.player}></div>;
 }
