@@ -5,63 +5,40 @@ const useKeypress = (
   setKeySet: Dispatch<SetStateAction<boolean[]>>,
 ) => {
   useEffect(() => {
+    const keys = [
+      ["ArrowUp", "w"],
+      ["ArrowDown", "s"],
+      ["ArrowLeft", "a"],
+      ["ArrowRight", "d"],
+    ];
+
     const eventListenerKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "ArrowUp" || e.key === "w") {
-        setKeySet({
-          ...keySet,
-          0: true,
-        });
-      }
-
-      if (e.key === "ArrowDown" || e.key === "s") {
-        setKeySet({
-          ...keySet,
-          1: true,
-        });
-      }
-
-      if (e.key === "ArrowLeft" || e.key === "a") {
-        setKeySet({
-          ...keySet,
-          2: true,
-        });
-      }
-
-      if (e.key === "ArrowRight" || e.key === "d") {
-        setKeySet({
-          ...keySet,
-          3: true,
-        });
+      e.preventDefault();
+      for (let i = 0; i < keys.length; i++) {
+        if (
+          keySet[i] === false &&
+          (e.key === keys[i][0] || e.key === keys[i][1])
+        ) {
+          setKeySet({
+            ...keySet,
+            [i]: true,
+          });
+        }
       }
     };
 
     const eventListenerKeyUp = (e: KeyboardEvent) => {
-      if (e.key === "ArrowUp" || e.key === "w") {
-        setKeySet({
-          ...keySet,
-          0: false,
-        });
-      }
-
-      if (e.key === "ArrowDown" || e.key === "s") {
-        setKeySet({
-          ...keySet,
-          1: false,
-        });
-      }
-
-      if (e.key === "ArrowLeft" || e.key === "a") {
-        setKeySet({
-          ...keySet,
-          2: false,
-        });
-      }
-
-      if (e.key === "ArrowRight" || e.key === "d") {
-        setKeySet({
-          ...keySet,
-          3: false,
-        });
+      e.preventDefault();
+      for (let i = 0; i < keys.length; i++) {
+        if (
+          keySet[i] === true &&
+          (e.key === keys[i][0] || e.key === keys[i][1])
+        ) {
+          setKeySet({
+            ...keySet,
+            [i]: false,
+          });
+        }
       }
     };
 
