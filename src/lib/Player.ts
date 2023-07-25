@@ -9,7 +9,7 @@ class Player {
   private maxSpeedUp;
   private speedUp;
 
-  constructor(ref: RefObject<HTMLDivElement>, speed = 10) {
+  constructor(ref: RefObject<HTMLDivElement>) {
     this.X = 0;
     this.Y = 0;
     this.speedUpX = 0;
