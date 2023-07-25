@@ -1,8 +1,8 @@
 import { RefObject } from "react";
 
 class Player {
-  private X;
-  private Y;
+  public x;
+  public y;
   private ref;
   private speedUpX;
   private speedUpY;
@@ -10,8 +10,8 @@ class Player {
   private speedUp;
 
   constructor(ref: RefObject<HTMLDivElement>) {
-    this.X = 0;
-    this.Y = 0;
+    this.x = 0;
+    this.y = 0;
     this.speedUpX = 0;
     this.speedUpY = 0;
     this.maxSpeedUp = 10;
@@ -34,22 +34,22 @@ class Player {
       Math.min(this.maxSpeedUp, this.speedUpX),
     );
 
-    this.X += this.speedUpX;
-    this.Y += this.speedUpY;
+    this.x += this.speedUpX;
+    this.y += this.speedUpY;
 
     this.speedUpX *= 0.95;
     this.speedUpY *= 0.95;
 
     if (this.ref.current)
-      this.ref.current.style.transform = `translate(${this.X}px, ${this.Y}px)`;
+      this.ref.current.style.transform = `translate(${this.x}px, ${this.y}px)`;
   };
 
   private move = (x: number, y: number) => {
-    this.X += x;
-    this.Y += y;
+    this.x += x;
+    this.y += y;
 
     if (this.ref.current)
-      this.ref.current.style.transform = `translate(${this.X}px, ${this.Y}px)`;
+      this.ref.current.style.transform = `translate(${this.x}px, ${this.y}px)`;
   };
 }
 
