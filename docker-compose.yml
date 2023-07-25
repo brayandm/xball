@@ -17,4 +17,3 @@ services:
 networks:
   xball-local:
     driver: bridge
-    external: true

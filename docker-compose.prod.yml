@@ -15,4 +15,3 @@ services:
 networks:
   xball:
     driver: bridge
-    external: true
