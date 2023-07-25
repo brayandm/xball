@@ -28,22 +28,5 @@ export default function PlayerComponent() {
     }
   });
 
-  useKeypress((key: string) => {
-    if (key === "a") {
-      player.moveLeft();
-    }
-
-    if (key === "d") {
-      player.moveRight();
-    }
-    if (key === "w") {
-      player.moveUp();
-    }
-
-    if (key === "s") {
-      player.moveDown();
-    }
-  });
-
   return <div ref={playerRef} className={styles.player}></div>;
 }
