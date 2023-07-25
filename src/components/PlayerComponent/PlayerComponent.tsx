@@ -16,8 +16,26 @@ export default function PlayerComponent() {
 
   const [touch, setTouch] = useState(false);
 
+  const [ws, setWs] = useState<WebSocket>();
+
+  const [loadingConnection, setLoadingConnection] = useState(true);
+
+  useEffect(() => {
+    const ws = new WebSocket("ws://localhost:3001");
+    setWs(ws);
+
+    ws.onopen = () => {
+      console.log("connected");
+      setLoadingConnection(false);
+    };
+  }, []);
+
   useEffect(() => {
     player.moveVector(keySet);
+
+    if (!loadingConnection) {
+      ws?.send(JSON.stringify({ x: player.x, y: player.y }));
+    }
 
     const timeoutId = setTimeout(() => {
       setTouch(!touch);
@@ -26,7 +44,7 @@ export default function PlayerComponent() {
     return () => {
       clearTimeout(timeoutId);
     };
-  }, [keySet, player, touch]);
+  }, [keySet, player, touch, ws, loadingConnection]);
 
   return <div ref={playerRef} className={styles.player}></div>;
 }
