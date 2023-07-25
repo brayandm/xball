@@ -2,31 +2,21 @@
 
 import styles from "./PlayerComponent.module.css";
 import useKeypress from "@/hooks/useKeypress";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Player from "@/lib/Player";
 
 export default function PlayerComponent() {
   const playerRef = useRef<HTMLDivElement>(null);
 
-  const player = new Player(playerRef);
+  const [player] = useState(new Player(playerRef));
 
-  useKeypress((key: string) => {
-    if (key === "w") {
-      player.moveUp();
-    }
+  const [keySet, setKeySet] = useState([false, false, false, false]);
 
-    if (key === "s") {
-      player.moveDown();
-    }
+  useKeypress(keySet, setKeySet);
 
-    if (key === "a") {
-      player.moveLeft();
-    }
-
-    if (key === "d") {
-      player.moveRight();
-    }
-  });
+  useEffect(() => {
+    player.moveVector(keySet);
+  }, [keySet, player]);
 
   return <div ref={playerRef} className={styles.player}></div>;
 }

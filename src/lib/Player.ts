@@ -29,6 +29,13 @@ class Player {
     this.move(this.speed, 0);
   };
 
+  public moveVector = (vector: boolean[]) => {
+    if (vector[0]) this.moveUp();
+    if (vector[1]) this.moveDown();
+    if (vector[2]) this.moveLeft();
+    if (vector[3]) this.moveRight();
+  };
+
   private move = (x: number, y: number) => {
     this.X += x;
     this.Y += y;
