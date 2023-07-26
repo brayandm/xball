@@ -2,6 +2,7 @@
 
 import GameManager from "@/lib/Game/GameManager";
 import WebSocketManager from "@/lib/WebSocketManager";
+import EventManager from "@/lib/EventManager";
 import { useEffect, useState } from "react";
 
 export default function Game() {
@@ -13,13 +14,13 @@ export default function Game() {
 
   const [gameManager] = useState(new GameManager({}));
 
-  useEffect(() => {
-    gameManager.createPlayerComponent();
+  const [eventManager] = useState(
+    new EventManager(gameManager, webSocketManager),
+  );
 
-    return () => {
-      gameManager.destroy();
-    };
-  }, [gameManager]);
+  useEffect(() => {
+    eventManager.start();
+  }, [eventManager]);
 
   return <h1> Hello World </h1>;
 }

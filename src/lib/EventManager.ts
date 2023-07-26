@@ -47,8 +47,6 @@ class EventManager {
     };
 
     this.webSocketManager.setOnMessageCallback(onMessage);
-    // this.webSocketManager.setOnNewConnectionCallback(onNewConnection);
-    // this.webSocketManager.setOnCloseConnectionCallback(onCloseConnection);
   }
 }
 
