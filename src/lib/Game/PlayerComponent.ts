@@ -52,7 +52,6 @@ class PlayerComponent {
       });
 
       setInterval(() => {
-        console.log(this.ketSet);
         this.press();
       }, 1000 / 60);
     }
