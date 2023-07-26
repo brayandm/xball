@@ -21,11 +21,10 @@ class WebSocketManager {
     },
   }: {
     webSocketUrl: string;
-
-    onMessageCallback: (message: string) => void;
-    onOpenConnectionCallback: () => void;
-    onCloseConnectionCallback: () => void;
-    onErrorMessageCallback: () => void;
+    onMessageCallback?: (message: string) => void;
+    onOpenConnectionCallback?: () => void;
+    onCloseConnectionCallback?: () => void;
+    onErrorMessageCallback?: () => void;
   }) {
     this.webSocket = new WebSocket(webSocketUrl);
 
