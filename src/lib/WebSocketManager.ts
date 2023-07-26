@@ -1,4 +1,4 @@
-class WebSockerManager {
+class WebSocketManager {
   private webSocket: WebSocket;
   private onMessageCallback: (connectionId: string, message: string) => void;
   private onOpenConnectionCallback: (connectionId: string) => void;
@@ -62,4 +62,4 @@ class WebSockerManager {
   }
 }
 
-export default WebSockerManager;
+export default WebSocketManager;
