@@ -60,6 +60,22 @@ class WebSocketManager {
   public sendMessage(message: string) {
     this.webSocket.send(message);
   }
+
+  public setOnMessageCallback(callback: (message: string) => void) {
+    this.onMessageCallback = callback;
+  }
+
+  public setOnOpenConnectionCallback(callback: () => void) {
+    this.onOpenConnectionCallback = callback;
+  }
+
+  public setOnCloseConnectionCallback(callback: () => void) {
+    this.onCloseConnectionCallback = callback;
+  }
+
+  public setOnErrorMessageCallback(callback: () => void) {
+    this.onErrorMessageCallback = callback;
+  }
 }
 
 export default WebSocketManager;
