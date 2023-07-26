@@ -30,7 +30,7 @@ export default function PlayerComponent() {
   const [players, setPlayers] = useState<PlayerData[]>([]);
 
   useEffect(() => {
-    const ws = new WebSocket("ws://localhost:3001");
+    const ws = new WebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_SERVER!);
     setWs(ws);
 
     ws.onopen = () => {
