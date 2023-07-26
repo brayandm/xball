@@ -5,8 +5,23 @@ class GameManager {
 
   constructor({}) {}
 
-  public createPlayerComponent = () => {
-    const playerComponent = new PlayerComponent({ isControllable: true });
+  public createPlayerComponent = ({
+    id,
+    isMe,
+    x,
+    y,
+  }: {
+    id: string;
+    isMe: boolean;
+    x: number;
+    y: number;
+  }) => {
+    const playerComponent = new PlayerComponent({
+      id,
+      x,
+      y,
+      isControllable: isMe,
+    });
 
     this.playerComponents.push(playerComponent);
   };

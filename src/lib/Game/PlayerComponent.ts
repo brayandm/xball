@@ -12,8 +12,22 @@ class PlayerComponent {
     right: boolean;
   };
 
-  constructor({ isControllable = false }) {
-    this.player = new Player({});
+  constructor({
+    id,
+    x,
+    y,
+    isControllable = false,
+  }: {
+    id: string;
+    x: number;
+    y: number;
+    isControllable?: boolean;
+  }) {
+    this.player = new Player({
+      id,
+      x,
+      y,
+    });
     this.isControllable = isControllable;
     this.ketSet = {
       up: false,
@@ -23,6 +37,8 @@ class PlayerComponent {
     };
 
     this.domElement = document.createElement("div");
+
+    this.refresh();
 
     document.body.appendChild(this.domElement);
 
@@ -55,6 +71,10 @@ class PlayerComponent {
         this.press();
       }, 1000 / 60);
     }
+  }
+
+  private refresh() {
+    this.domElement.style.transform = `translate(${this.player.x}px, ${this.player.y}px)`;
   }
 
   private press() {

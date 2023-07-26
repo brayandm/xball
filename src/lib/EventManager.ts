@@ -38,12 +38,19 @@ class EventManager {
 
   public start() {
     const onMessage = (message: string) => {
-      const parsedMessage:
-        | updatePlayerEvent
-        | createPlayerEvent
-        | removePlayerEvent = JSON.parse(message);
+      const event: updatePlayerEvent | createPlayerEvent | removePlayerEvent =
+        JSON.parse(message);
 
-      console.log(parsedMessage);
+      console.log(event);
+
+      if (event.type === "createPlayer") {
+        this.gameManager.createPlayerComponent({
+          id: event.id,
+          isMe: event.isMe,
+          x: event.x,
+          y: event.y,
+        });
+      }
     };
 
     this.webSocketManager.setOnMessageCallback(onMessage);

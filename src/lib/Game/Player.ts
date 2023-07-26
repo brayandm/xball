@@ -1,4 +1,5 @@
 class Player {
+  public id;
   public x;
   public y;
   private speedUpX;
@@ -7,13 +8,23 @@ class Player {
   private speedUp;
 
   constructor({
+    id,
     x = 0,
     y = 0,
     speedUpX = 0,
     speedUpY = 0,
     maxSpeedUp = 10,
     speedUp = 1,
+  }: {
+    id: string;
+    x?: number;
+    y?: number;
+    speedUpX?: number;
+    speedUpY?: number;
+    maxSpeedUp?: number;
+    speedUp?: number;
   }) {
+    this.id = id;
     this.x = x;
     this.y = y;
     this.speedUpX = speedUpX;
