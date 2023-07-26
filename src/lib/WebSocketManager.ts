@@ -1,9 +1,9 @@
 class WebSocketManager {
   private webSocket: WebSocket;
-  private onMessageCallback: (connectionId: string, message: string) => void;
-  private onOpenConnectionCallback: (connectionId: string) => void;
-  private onCloseConnectionCallback: (connectionId: string) => void;
-  private onErrorMessageCallback: (connectionId: string) => void;
+  private onMessageCallback: (message: string) => void;
+  private onOpenConnectionCallback: () => void;
+  private onCloseConnectionCallback: () => void;
+  private onErrorMessageCallback: () => void;
 
   constructor({
     webSocketUrl,
@@ -22,10 +22,10 @@ class WebSocketManager {
   }: {
     webSocketUrl: string;
 
-    onMessageCallback: (connectionId: string, message: string) => void;
-    onOpenConnectionCallback: (connectionId: string) => void;
-    onCloseConnectionCallback: (connectionId: string) => void;
-    onErrorMessageCallback: (connectionId: string) => void;
+    onMessageCallback: (message: string) => void;
+    onOpenConnectionCallback: () => void;
+    onCloseConnectionCallback: () => void;
+    onErrorMessageCallback: () => void;
   }) {
     this.webSocket = new WebSocket(webSocketUrl);
 
@@ -37,23 +37,23 @@ class WebSocketManager {
     this.webSocket.onopen = () => {
       console.log("WebSocket is connected.");
 
-      this.onOpenConnectionCallback(this.webSocket.url);
+      this.onOpenConnectionCallback();
     };
 
     this.webSocket.onclose = () => {
       console.log("WebSocket is closed.");
 
-      this.onCloseConnectionCallback(this.webSocket.url);
+      this.onCloseConnectionCallback();
     };
 
     this.webSocket.onerror = () => {
       console.log("WebSocket is error.");
 
-      this.onErrorMessageCallback(this.webSocket.url);
+      this.onErrorMessageCallback();
     };
 
     this.webSocket.onmessage = (event) => {
-      this.onMessageCallback(this.webSocket.url, event.data.toString());
+      this.onMessageCallback(event.data.toString());
     };
   }
 
