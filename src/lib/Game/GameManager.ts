@@ -10,6 +10,12 @@ class GameManager {
 
     this.playerComponents.push(playerComponent);
   };
+
+  public destroy() {
+    this.playerComponents.forEach((playerComponent) => {
+      playerComponent.destroy();
+    });
+  }
 }
 
 export default GameManager;

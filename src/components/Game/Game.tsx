@@ -8,6 +8,10 @@ export default function Game() {
 
   useEffect(() => {
     gameManager.createPlayerComponent();
+
+    return () => {
+      gameManager.destroy();
+    };
   }, [gameManager]);
 
   return <h1> Hello World </h1>;

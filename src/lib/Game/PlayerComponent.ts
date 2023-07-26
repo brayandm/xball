@@ -67,6 +67,10 @@ class PlayerComponent {
     this.player.move(x, y);
     this.domElement.style.transform = `translate(${this.player.x}px, ${this.player.y}px)`;
   }
+
+  public destroy() {
+    this.domElement.remove();
+  }
 }
 
 export default PlayerComponent;
