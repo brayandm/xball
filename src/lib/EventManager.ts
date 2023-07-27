@@ -44,15 +44,25 @@ class EventManager {
       const event: updatePlayerEvent | createPlayerEvent | removePlayerEvent =
         JSON.parse(message);
 
-      console.log(event);
-
       if (event.type === "createPlayer") {
-        myPlayerComponent = this.gameManager.createPlayerComponent({
+        const player = this.gameManager.createPlayerComponent({
           id: event.id,
           isMe: event.isMe,
           x: event.x,
           y: event.y,
         });
+
+        if (event.isMe) {
+          myPlayerComponent = player;
+        }
+      } else if (event.type === "updatePlayer") {
+        const playerComponent = this.gameManager.getPlayerComponentById(
+          event.id,
+        );
+
+        if (playerComponent) {
+          playerComponent.updatePosition(event.x, event.y);
+        }
       }
     };
 

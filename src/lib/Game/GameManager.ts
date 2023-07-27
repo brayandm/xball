@@ -11,6 +11,12 @@ class GameManager {
     );
   };
 
+  public getPlayerComponentById = (id: string) => {
+    return this.playerComponents.find(
+      (playerComponent) => playerComponent.getId() === id,
+    );
+  };
+
   public createPlayerComponent = ({
     id,
     isMe,

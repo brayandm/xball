@@ -24,11 +24,22 @@ class PlayerComponent {
     return this.player.y;
   }
 
+  public getId() {
+    return this.player.id;
+  }
+
   public getPosition() {
     return {
       x: this.getX(),
       y: this.getY(),
     };
+  }
+
+  public updatePosition(x: number, y: number) {
+    this.player.x = x;
+    this.player.y = y;
+
+    this.refresh();
   }
 
   constructor({
