@@ -4,6 +4,9 @@ class PlayerComponent {
   private player: Player;
   private domElement: HTMLElement;
   private isControllable: boolean;
+  private onUpdatePosition: (x: number, y: number) => void;
+  private playerWidth = 70;
+  private playerHeight = 70;
 
   private ketSet: {
     up: boolean;
@@ -47,11 +50,17 @@ class PlayerComponent {
     x,
     y,
     isControllable = false,
+    onUpdatePosition = () => {
+      return;
+    },
+    parentComponent,
   }: {
     id: string;
     x: number;
     y: number;
     isControllable?: boolean;
+    onUpdatePosition?: (x: number, y: number) => void;
+    parentComponent: HTMLElement;
   }) {
     this.player = new Player({
       id,
@@ -65,12 +74,12 @@ class PlayerComponent {
       left: false,
       right: false,
     };
+    this.onUpdatePosition = onUpdatePosition;
 
     this.domElement = document.createElement("div");
-
     this.refresh();
 
-    document.body.appendChild(this.domElement);
+    parentComponent.appendChild(this.domElement);
 
     this.domElement.classList.add("player");
 
@@ -99,12 +108,15 @@ class PlayerComponent {
 
       setInterval(() => {
         this.press();
+        this.onUpdatePosition(this.player.x, this.player.y);
       }, 1000 / 60);
     }
   }
 
   private refresh() {
-    this.domElement.style.transform = `translate(${this.player.x}px, ${this.player.y}px)`;
+    this.domElement.style.transform = `translate(${
+      this.player.x + window.innerWidth / 2 - this.playerWidth / 2
+    }px, ${this.player.y + window.innerHeight / 2 - this.playerHeight / 2}px)`;
   }
 
   private press() {
@@ -115,6 +127,10 @@ class PlayerComponent {
   public update(x: number, y: number) {
     this.player.move(x, y);
     this.refresh();
+  }
+
+  public setOnUpdatePosition(onUpdatePosition: (x: number, y: number) => void) {
+    this.onUpdatePosition = onUpdatePosition;
   }
 
   public destroy() {

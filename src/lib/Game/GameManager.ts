@@ -11,6 +11,10 @@ class GameManager {
     this.mapComponent.startRendering();
   }
 
+  public getMapComponent() {
+    return this.mapComponent;
+  }
+
   public getMyPlayerComponent = () => {
     return this.playerComponents.find((playerComponent) =>
       playerComponent.isItControllable(),
@@ -51,7 +55,14 @@ class GameManager {
       x,
       y,
       isControllable: isMe,
+      parentComponent: this.mapComponent.getMapElement()!,
     });
+
+    if (isMe) {
+      playerComponent.setOnUpdatePosition((x, y) => {
+        this.mapComponent.updateViewPosition(x, y);
+      });
+    }
 
     this.playerComponents.push(playerComponent);
 

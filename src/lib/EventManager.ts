@@ -45,6 +45,10 @@ class EventManager {
         JSON.parse(message);
 
       if (event.type === "createPlayer") {
+        if (event.isMe) {
+          this.gameManager.getMapComponent().createMap();
+        }
+
         const player = this.gameManager.createPlayerComponent({
           id: event.id,
           isMe: event.isMe,
