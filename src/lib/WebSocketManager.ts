@@ -60,6 +60,10 @@ class WebSocketManager {
     this.webSocket.send(message);
   }
 
+  public closeConnection() {
+    this.webSocket.close();
+  }
+
   public setOnMessageCallback(callback: (message: string) => void) {
     this.onMessageCallback = callback;
   }
