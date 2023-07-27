@@ -10,6 +10,8 @@ class Player {
   private maxX;
   private minY;
   private maxY;
+  private playerWidth;
+  private playerHeight;
 
   constructor({
     id,
@@ -23,6 +25,8 @@ class Player {
     maxX,
     minY,
     maxY,
+    playerWidth,
+    playerHeight,
   }: {
     id: string;
     x?: number;
@@ -35,6 +39,8 @@ class Player {
     maxX: number;
     minY: number;
     maxY: number;
+    playerWidth: number;
+    playerHeight: number;
   }) {
     this.id = id;
     this.x = x;
@@ -47,6 +53,8 @@ class Player {
     this.maxX = maxX;
     this.minY = minY;
     this.maxY = maxY;
+    this.playerWidth = playerWidth;
+    this.playerHeight = playerHeight;
   }
 
   public press = ({
@@ -72,8 +80,14 @@ class Player {
     this.x += this.speedUpX;
     this.y += this.speedUpY;
 
-    this.x = Math.max(this.minX, Math.min(this.maxX, this.x));
-    this.y = Math.max(this.minY, Math.min(this.maxY, this.y));
+    this.x = Math.max(
+      this.minX + this.playerWidth / 2,
+      Math.min(this.maxX - this.playerWidth / 2, this.x),
+    );
+    this.y = Math.max(
+      this.minY + this.playerHeight / 2,
+      Math.min(this.maxY - this.playerHeight / 2, this.y),
+    );
 
     this.speedUpX *= 0.95;
     this.speedUpY *= 0.95;

@@ -87,6 +87,8 @@ class PlayerComponent {
       maxX,
       minY,
       maxY,
+      playerWidth: this.playerWidth,
+      playerHeight: this.playerHeight,
     });
     this.isControllable = isControllable;
     this.ketSet = {
