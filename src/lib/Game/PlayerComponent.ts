@@ -7,6 +7,10 @@ class PlayerComponent {
   private onUpdatePosition: (x: number, y: number) => void;
   private playerWidth = 70;
   private playerHeight = 70;
+  private minX;
+  private maxX;
+  private minY;
+  private maxY;
 
   private ketSet: {
     up: boolean;
@@ -54,6 +58,10 @@ class PlayerComponent {
       return;
     },
     parentComponent,
+    minX,
+    maxX,
+    minY,
+    maxY,
   }: {
     id: string;
     x: number;
@@ -61,11 +69,24 @@ class PlayerComponent {
     isControllable?: boolean;
     onUpdatePosition?: (x: number, y: number) => void;
     parentComponent: HTMLElement;
+    minX: number;
+    maxX: number;
+    minY: number;
+    maxY: number;
   }) {
+    this.minX = minX;
+    this.maxX = maxX;
+    this.minY = minY;
+    this.maxY = maxY;
+
     this.player = new Player({
       id,
       x,
       y,
+      minX,
+      maxX,
+      minY,
+      maxY,
     });
     this.isControllable = isControllable;
     this.ketSet = {

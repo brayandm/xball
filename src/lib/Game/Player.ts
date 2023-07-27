@@ -6,6 +6,10 @@ class Player {
   private speedUpY;
   private maxSpeedUp;
   private speedUp;
+  private minX;
+  private maxX;
+  private minY;
+  private maxY;
 
   constructor({
     id,
@@ -15,6 +19,10 @@ class Player {
     speedUpY = 0,
     maxSpeedUp = 10,
     speedUp = 1,
+    minX,
+    maxX,
+    minY,
+    maxY,
   }: {
     id: string;
     x?: number;
@@ -23,6 +31,10 @@ class Player {
     speedUpY?: number;
     maxSpeedUp?: number;
     speedUp?: number;
+    minX: number;
+    maxX: number;
+    minY: number;
+    maxY: number;
   }) {
     this.id = id;
     this.x = x;
@@ -31,6 +43,10 @@ class Player {
     this.speedUpY = speedUpY;
     this.maxSpeedUp = maxSpeedUp;
     this.speedUp = speedUp;
+    this.minX = minX;
+    this.maxX = maxX;
+    this.minY = minY;
+    this.maxY = maxY;
   }
 
   public press = ({
@@ -55,6 +71,9 @@ class Player {
 
     this.x += this.speedUpX;
     this.y += this.speedUpY;
+
+    this.x = Math.max(this.minX, Math.min(this.maxX, this.x));
+    this.y = Math.max(this.minY, Math.min(this.maxY, this.y));
 
     this.speedUpX *= 0.95;
     this.speedUpY *= 0.95;

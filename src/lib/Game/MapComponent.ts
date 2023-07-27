@@ -22,6 +22,14 @@ class MapComponent {
     this.height = height;
   }
 
+  getMapWidth() {
+    return this.width;
+  }
+
+  getMapHeight() {
+    return this.height;
+  }
+
   getMapElement() {
     return this.map;
   }

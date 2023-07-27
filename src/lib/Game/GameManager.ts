@@ -56,6 +56,10 @@ class GameManager {
       y,
       isControllable: isMe,
       parentComponent: this.mapComponent.getMapElement()!,
+      minX: 0,
+      maxX: this.mapComponent.getMapWidth(),
+      minY: 0,
+      maxY: this.mapComponent.getMapHeight(),
     });
 
     if (isMe) {
