@@ -109,12 +109,12 @@ class PlayerComponent {
 
   private press() {
     this.player.press(this.ketSet);
-    this.domElement.style.transform = `translate(${this.player.x}px, ${this.player.y}px)`;
+    this.refresh();
   }
 
   public update(x: number, y: number) {
     this.player.move(x, y);
-    this.domElement.style.transform = `translate(${this.player.x}px, ${this.player.y}px)`;
+    this.refresh();
   }
 
   public destroy() {
