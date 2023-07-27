@@ -4,13 +4,14 @@
 }
 
 .player {
-  width: 70px;
-  height: 70px;
-  background-color: blue;
+  width: 60px;
+  height: 60px;
+  background-color: #00ade1;
   position: absolute;
   left: 0;
   top: 0;
   border-radius: 50%;
+  border: 5px solid #0081a8;
 }
 
 body {
