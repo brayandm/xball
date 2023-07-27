@@ -8,8 +8,8 @@ type createPlayerEvent = {
   id: string;
   x: number;
   y: number;
-  aceleracionX?: number;
-  aceleracionY?: number;
+  accelerationX?: number;
+  accelerationY?: number;
   balls?: boolean[];
 };
 
@@ -18,8 +18,8 @@ type updatePlayerEvent = {
   id: string;
   x: number;
   y: number;
-  aceleracionX?: number;
-  aceleracionY?: number;
+  accelerationX: number;
+  accelerationY: number;
   balls?: boolean[];
 };
 
@@ -65,7 +65,12 @@ class EventManager {
         );
 
         if (playerComponent) {
-          playerComponent.updatePosition(event.x, event.y);
+          playerComponent.updateAndPredictPosition(
+            event.x,
+            event.y,
+            event.accelerationX,
+            event.accelerationY,
+          );
         }
       } else if (event.type === "removePlayer") {
         this.gameManager.removePlayerComponentById(event.id);
@@ -79,13 +84,13 @@ class EventManager {
             type: "updatePlayer",
             x: myPlayerComponent.getX(),
             y: myPlayerComponent.getY(),
-            aceleracionX: myPlayerComponent.getAccelerationX(),
-            aceleracionY: myPlayerComponent.getAccelerationY(),
+            accelerationX: myPlayerComponent.getAccelerationX(),
+            accelerationY: myPlayerComponent.getAccelerationY(),
           };
 
           this.webSocketManager.sendMessage(JSON.stringify(event));
         }
-      }, 1000 / 60);
+      }, 1000 / 10);
     };
 
     this.webSocketManager.setOnMessageCallback(onMessage);
