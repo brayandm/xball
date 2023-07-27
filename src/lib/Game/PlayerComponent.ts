@@ -35,11 +35,11 @@ class PlayerComponent {
     return this.player.id;
   }
 
-  public getAcelerationX() {
+  public getAccelerationX() {
     return this.player.speedUpX;
   }
 
-  public getAcelerationY() {
+  public getAccelerationY() {
     return this.player.speedUpY;
   }
 

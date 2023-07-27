@@ -79,8 +79,8 @@ class EventManager {
             type: "updatePlayer",
             x: myPlayerComponent.getX(),
             y: myPlayerComponent.getY(),
-            aceleracionX: myPlayerComponent.getAcelerationX(),
-            aceleracionY: myPlayerComponent.getAcelerationY(),
+            aceleracionX: myPlayerComponent.getAccelerationX(),
+            aceleracionY: myPlayerComponent.getAccelerationY(),
           };
 
           this.webSocketManager.sendMessage(JSON.stringify(event));
