@@ -17,6 +17,18 @@ class GameManager {
     );
   };
 
+  public removePlayerComponentById = (id: string) => {
+    const playerComponent = this.getPlayerComponentById(id);
+
+    if (playerComponent) {
+      playerComponent.destroy();
+    }
+
+    this.playerComponents = this.playerComponents.filter(
+      (playerComponent) => playerComponent.getId() !== id,
+    );
+  };
+
   public createPlayerComponent = ({
     id,
     isMe,
