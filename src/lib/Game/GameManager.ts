@@ -5,7 +5,7 @@ class GameManager {
   private playerComponents: PlayerComponent[] = [];
   private mapComponent: MapComponent;
 
-  constructor({mapComponent}: {mapComponent: MapComponent}) {
+  constructor({ mapComponent }: { mapComponent: MapComponent }) {
     this.mapComponent = mapComponent;
 
     this.mapComponent.startRendering();
