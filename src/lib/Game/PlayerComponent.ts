@@ -144,10 +144,8 @@ class PlayerComponent {
   private refresh() {
     if (!this.isControllable) {
       this.domElement.style.transform = `translate(${
-        this.player.x + window.innerWidth / 2 - this.playerWidth / 2
-      }px, ${
-        this.player.y + window.innerHeight / 2 - this.playerHeight / 2
-      }px)`;
+        this.player.x - this.playerWidth / 2
+      }px, ${this.player.y - this.playerHeight / 2}px)`;
     }
   }
 

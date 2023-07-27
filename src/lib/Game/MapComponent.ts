@@ -55,11 +55,13 @@ class MapComponent {
 
   public render() {
     if (this.map) {
-      this.map.style.transform = `translate(${-this.viewX}px, ${-this
-        .viewY}px)`;
+      this.map.style.transform = `translate(${
+        -this.viewX + window.innerWidth / 2
+      }px, ${-this.viewY + window.innerHeight / 2}px)`;
     }
-    document.body.style.backgroundPosition = `${-this.viewX}px ${-this
-      .viewY}px`;
+    document.body.style.backgroundPosition = `${
+      -this.viewX + window.innerWidth / 2
+    }px ${-this.viewY + window.innerHeight / 2}px`;
   }
 }
 
