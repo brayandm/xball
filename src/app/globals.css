@@ -3,20 +3,23 @@
   padding: 0;
 }
 
+body {
+  overflow: hidden;
+}
+
 .player {
   width: 60px;
   height: 60px;
   background-color: #00ade1;
-  position: absolute;
-  left: 0;
-  top: 0;
+  position: fixed;
   border-radius: 50%;
   border: 5px solid #0081a8;
 }
 
-body {
-  background: linear-gradient(90deg, #c7c7c7 0.1em, transparent 0.1em),
-    linear-gradient(#c7c7c7 0.1em, transparent 0.1em);
+.map {
+  position: relative;
+  background: linear-gradient(90deg, #c7c7c7 2px, transparent 2px),
+    linear-gradient(#c7c7c7 2px, transparent 2px);
 
   background-size: 35px 35px;
 
