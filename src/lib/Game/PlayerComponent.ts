@@ -73,6 +73,8 @@ class PlayerComponent {
     this.player.speedUpX = accelerationX;
     this.player.speedUpY = accelerationY;
 
+    this.refresh();
+
     this.renderTimer = setInterval(() => {
       this.player.x += this.player.speedUpX;
       this.player.y += this.player.speedUpY;
