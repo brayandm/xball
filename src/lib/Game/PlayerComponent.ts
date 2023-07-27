@@ -11,6 +11,7 @@ class PlayerComponent {
   private maxX;
   private minY;
   private maxY;
+  private renderTimer: NodeJS.Timer | undefined;
 
   private ketSet: {
     up: boolean;
@@ -55,6 +56,29 @@ class PlayerComponent {
     this.player.y = y;
 
     this.refresh();
+  }
+
+  public updateAndPredictPosition(
+    x: number,
+    y: number,
+    accelerationX: number,
+    accelerationY: number,
+  ) {
+    if (this.renderTimer) {
+      clearInterval(this.renderTimer);
+    }
+
+    this.player.x = x;
+    this.player.y = y;
+    this.player.speedUpX = accelerationX;
+    this.player.speedUpY = accelerationY;
+
+    this.renderTimer = setInterval(() => {
+      this.player.x += this.player.speedUpX;
+      this.player.y += this.player.speedUpY;
+
+      this.refresh();
+    }, 1000 / 60);
   }
 
   constructor({
