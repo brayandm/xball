@@ -2,8 +2,8 @@ class Player {
   public id;
   public x;
   public y;
-  private speedUpX;
-  private speedUpY;
+  public speedUpX;
+  public speedUpY;
   private maxSpeedUp;
   private speedUp;
   private minX;

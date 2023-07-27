@@ -35,6 +35,14 @@ class PlayerComponent {
     return this.player.id;
   }
 
+  public getAcelerationX() {
+    return this.player.speedUpX;
+  }
+
+  public getAcelerationY() {
+    return this.player.speedUpY;
+  }
+
   public getPosition() {
     return {
       x: this.getX(),
