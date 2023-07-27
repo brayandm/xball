@@ -12,6 +12,8 @@ class Player {
   private maxY;
   private playerWidth;
   private playerHeight;
+  private decelerationLoss = 0.95;
+  private reboundLoss = 0.8;
 
   constructor({
     id,
@@ -89,8 +91,22 @@ class Player {
       Math.min(this.maxY - this.playerHeight / 2, this.y),
     );
 
-    this.speedUpX *= 0.95;
-    this.speedUpY *= 0.95;
+    if (
+      this.x == this.minX + this.playerWidth / 2 ||
+      this.x == this.maxX - this.playerWidth / 2
+    ) {
+      this.speedUpX = -this.speedUpX * this.reboundLoss;
+    }
+
+    if (
+      this.y == this.minY + this.playerHeight / 2 ||
+      this.y == this.maxY - this.playerHeight / 2
+    ) {
+      this.speedUpY = -this.speedUpY * this.reboundLoss;
+    }
+
+    this.speedUpX *= this.decelerationLoss;
+    this.speedUpY *= this.decelerationLoss;
 
     if (Math.abs(this.speedUpX) < 0.5) this.speedUpX = 0;
     if (Math.abs(this.speedUpY) < 0.5) this.speedUpY = 0;
