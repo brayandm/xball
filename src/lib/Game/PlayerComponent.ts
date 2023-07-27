@@ -79,7 +79,14 @@ class PlayerComponent {
     this.domElement = document.createElement("div");
     this.refresh();
 
-    parentComponent.appendChild(this.domElement);
+    if (this.isControllable) {
+      this.domElement.style.position = "fixed";
+      this.domElement.style.left = `calc(50% - ${this.playerWidth / 2}px)`;
+      this.domElement.style.top = `calc(50% - ${this.playerHeight / 2}px)`;
+      document.body.appendChild(this.domElement);
+    } else {
+      parentComponent.appendChild(this.domElement);
+    }
 
     this.domElement.classList.add("player");
 
@@ -114,9 +121,13 @@ class PlayerComponent {
   }
 
   private refresh() {
-    this.domElement.style.transform = `translate(${
-      this.player.x + window.innerWidth / 2 - this.playerWidth / 2
-    }px, ${this.player.y + window.innerHeight / 2 - this.playerHeight / 2}px)`;
+    if (!this.isControllable) {
+      this.domElement.style.transform = `translate(${
+        this.player.x + window.innerWidth / 2 - this.playerWidth / 2
+      }px, ${
+        this.player.y + window.innerHeight / 2 - this.playerHeight / 2
+      }px)`;
+    }
   }
 
   private press() {
