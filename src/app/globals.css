@@ -5,6 +5,13 @@
 
 body {
   overflow: hidden;
+
+  background: linear-gradient(90deg, #aeaeae 2px, transparent 2px),
+    linear-gradient(#aeaeae 2px, transparent 2px);
+
+  background-size: 35px 35px;
+
+  background-color: #b8b8b8;
 }
 
 .player {
@@ -18,8 +25,8 @@ body {
 
 .map {
   position: relative;
-  background: linear-gradient(90deg, #c7c7c7 2px, transparent 2px),
-    linear-gradient(#c7c7c7 2px, transparent 2px);
+  background: linear-gradient(90deg, #c2c2c2 2px, transparent 2px),
+    linear-gradient(#c2c2c2 2px, transparent 2px);
 
   background-size: 35px 35px;
 
