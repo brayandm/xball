@@ -50,6 +50,8 @@ class MapComponent {
       this.map.style.transform = `translate(${-this.viewX}px, ${-this
         .viewY}px)`;
     }
+    document.body.style.backgroundPosition = `${-this.viewX}px ${-this
+      .viewY}px`;
   }
 }
 
