@@ -27,7 +27,11 @@ export default function Game() {
   );
 
   const [eventManager] = useState(
-    new EventManager(gameManager, webSocketManager),
+    new EventManager(
+      gameManager,
+      webSocketManager,
+      Number(process.env.NEXT_PUBLIC_FPS!),
+    ),
   );
 
   useEffect(() => {
