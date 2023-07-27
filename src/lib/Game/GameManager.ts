@@ -1,9 +1,15 @@
 import PlayerComponent from "./PlayerComponent";
+import MapComponent from "./MapComponent";
 
 class GameManager {
   private playerComponents: PlayerComponent[] = [];
+  private mapComponent: MapComponent;
 
-  constructor({}) {}
+  constructor({mapComponent}: {mapComponent: MapComponent}) {
+    this.mapComponent = mapComponent;
+
+    this.mapComponent.startRendering();
+  }
 
   public getMyPlayerComponent = () => {
     return this.playerComponents.find((playerComponent) =>
