@@ -17,6 +17,8 @@ export default function Game() {
     new MapComponent({
       width: Number(process.env.NEXT_PUBLIC_MAP_WIDTH!),
       height: Number(process.env.NEXT_PUBLIC_MAP_HEIGHT!),
+      viewX: 0,
+      viewY: 0,
     }),
   );
 
