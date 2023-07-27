@@ -12,6 +12,25 @@ class PlayerComponent {
     right: boolean;
   };
 
+  public isItControllable() {
+    return this.isControllable;
+  }
+
+  public getX() {
+    return this.player.x;
+  }
+
+  public getY() {
+    return this.player.y;
+  }
+
+  public getPosition() {
+    return {
+      x: this.getX(),
+      y: this.getY(),
+    };
+  }
+
   constructor({
     id,
     x,

@@ -1,4 +1,5 @@
 import GameManager from "./Game/GameManager";
+import PlayerComponent from "./Game/PlayerComponent";
 import WebSocketManager from "./WebSocketManager";
 
 type createPlayerEvent = {
@@ -37,6 +38,8 @@ class EventManager {
   }
 
   public start() {
+    let myPlayerComponent: PlayerComponent | undefined;
+
     const onMessage = (message: string) => {
       const event: updatePlayerEvent | createPlayerEvent | removePlayerEvent =
         JSON.parse(message);
@@ -44,7 +47,7 @@ class EventManager {
       console.log(event);
 
       if (event.type === "createPlayer") {
-        this.gameManager.createPlayerComponent({
+        myPlayerComponent = this.gameManager.createPlayerComponent({
           id: event.id,
           isMe: event.isMe,
           x: event.x,
@@ -53,7 +56,22 @@ class EventManager {
       }
     };
 
+    const onOpenConnection = () => {
+      setInterval(() => {
+        if (myPlayerComponent) {
+          const event = {
+            type: "updatePlayer",
+            x: myPlayerComponent.getX(),
+            y: myPlayerComponent.getY(),
+          };
+
+          this.webSocketManager.sendMessage(JSON.stringify(event));
+        }
+      }, 1000 / 60);
+    };
+
     this.webSocketManager.setOnMessageCallback(onMessage);
+    this.webSocketManager.setOnOpenConnectionCallback(onOpenConnection);
   }
 }
 

@@ -5,6 +5,12 @@ class GameManager {
 
   constructor({}) {}
 
+  public getMyPlayerComponent = () => {
+    return this.playerComponents.find((playerComponent) =>
+      playerComponent.isItControllable(),
+    );
+  };
+
   public createPlayerComponent = ({
     id,
     isMe,
@@ -24,6 +30,8 @@ class GameManager {
     });
 
     this.playerComponents.push(playerComponent);
+
+    return playerComponent;
   };
 
   public destroy() {
