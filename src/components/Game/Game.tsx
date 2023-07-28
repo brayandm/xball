@@ -15,9 +15,6 @@ export default function Game() {
 
   const [mapComponent] = useState(
     new MapComponent({
-      viewAccelerationFactor: Number(
-        process.env.NEXT_PUBLIC_VIEW_ACCELERATION_FACTOR!,
-      ),
       width: Number(process.env.NEXT_PUBLIC_MAP_WIDTH!),
       height: Number(process.env.NEXT_PUBLIC_MAP_HEIGHT!),
       viewX: 0,
