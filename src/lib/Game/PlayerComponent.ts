@@ -4,12 +4,7 @@ class PlayerComponent {
   private player: Player;
   private domElement: HTMLElement;
   private isControllable: boolean;
-  private onUpdatePosition: (
-    x: number,
-    y: number,
-    speedUpX: number,
-    speedUpY: number,
-  ) => void;
+  private onUpdatePosition: (x: number, y: number) => void;
   private playerWidth = 70;
   private playerHeight = 70;
   private minX;
@@ -17,7 +12,7 @@ class PlayerComponent {
   private minY;
   private maxY;
   private renderTimer: NodeJS.Timer | undefined;
-  private viewAccelerationFactor;
+  private viewAccelerationFactor = 10;
 
   private ketSet: {
     up: boolean;
@@ -102,30 +97,22 @@ class PlayerComponent {
     maxX,
     minY,
     maxY,
-    viewAccelerationFactor,
   }: {
     id: string;
     x: number;
     y: number;
     isControllable?: boolean;
-    onUpdatePosition?: (
-      x: number,
-      y: number,
-      speedUpX: number,
-      speedUpY: number,
-    ) => void;
+    onUpdatePosition?: (x: number, y: number) => void;
     parentComponent: HTMLElement;
     minX: number;
     maxX: number;
     minY: number;
     maxY: number;
-    viewAccelerationFactor: number;
   }) {
     this.minX = minX;
     this.maxX = maxX;
     this.minY = minY;
     this.maxY = maxY;
-    this.viewAccelerationFactor = viewAccelerationFactor;
 
     this.player = new Player({
       id,
@@ -187,10 +174,8 @@ class PlayerComponent {
       setInterval(() => {
         this.press();
         this.onUpdatePosition(
-          this.player.x,
-          this.player.y,
-          this.player.speedUpX,
-          this.player.speedUpY,
+          this.player.x - this.player.speedUpX * this.viewAccelerationFactor,
+          this.player.y - this.player.speedUpY * this.viewAccelerationFactor,
         );
       }, 1000 / 60);
     }
@@ -218,14 +203,7 @@ class PlayerComponent {
     this.refresh();
   }
 
-  public setOnUpdatePosition(
-    onUpdatePosition: (
-      x: number,
-      y: number,
-      speedUpX: number,
-      speedUpY: number,
-    ) => void,
-  ) {
+  public setOnUpdatePosition(onUpdatePosition: (x: number, y: number) => void) {
     this.onUpdatePosition = onUpdatePosition;
   }
 

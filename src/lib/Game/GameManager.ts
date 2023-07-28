@@ -60,12 +60,11 @@ class GameManager {
       maxX: this.mapComponent.getMapWidth(),
       minY: 0,
       maxY: this.mapComponent.getMapHeight(),
-      viewAccelerationFactor: this.mapComponent.viewAccelerationFactor,
     });
 
     if (isMe) {
-      playerComponent.setOnUpdatePosition((x, y, speedUpX, speedUpY) => {
-        this.mapComponent.updateViewPosition(x, y, speedUpX, speedUpY);
+      playerComponent.setOnUpdatePosition((x, y) => {
+        this.mapComponent.updateViewPosition(x, y);
       });
     }
 

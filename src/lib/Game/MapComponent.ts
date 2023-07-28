@@ -1,29 +1,25 @@
 class MapComponent {
   private width: number;
   private height: number;
-  private viewX: number;
-  private viewY: number;
+  private viewX;
+  private viewY;
   private map: HTMLElement | null = null;
-  public viewAccelerationFactor;
 
   constructor({
-    viewAccelerationFactor,
     width,
     height,
     viewX,
     viewY,
   }: {
-    viewAccelerationFactor: number;
     width: number;
     height: number;
     viewX: number;
     viewY: number;
   }) {
-    this.viewAccelerationFactor = viewAccelerationFactor;
-    this.viewX = viewX;
-    this.viewY = viewY;
     this.width = width;
     this.height = height;
+    this.viewX = viewX;
+    this.viewY = viewY;
   }
 
   getMapWidth() {
@@ -46,9 +42,9 @@ class MapComponent {
     document.body.appendChild(this.map);
   }
 
-  updateViewPosition(x: number, y: number, speedUpX: number, speedUpY: number) {
-    this.viewX = x - speedUpX * this.viewAccelerationFactor;
-    this.viewY = y - speedUpY * this.viewAccelerationFactor;
+  updateViewPosition(viewX: number, viewY: number) {
+    this.viewX = viewX;
+    this.viewY = viewY;
   }
 
   public startRendering() {
