@@ -12,7 +12,6 @@ class Player {
   private maxY;
   private playerWidth;
   private playerHeight;
-  private decelerationLoss = 0.95;
   private reboundLoss = 0.8;
 
   constructor({
@@ -22,7 +21,7 @@ class Player {
     speedUpX = 0,
     speedUpY = 0,
     maxSpeedUp = 10,
-    speedUp = 1,
+    speedUp = 0.3,
     minX,
     maxX,
     minY,
@@ -105,11 +104,20 @@ class Player {
       this.speedUpY = -this.speedUpY * this.reboundLoss;
     }
 
-    this.speedUpX *= this.decelerationLoss;
-    this.speedUpY *= this.decelerationLoss;
+    if (this.speedUpX > 0) {
+      this.speedUpX = Math.max(0, this.speedUpX - this.speedUp / 2);
+    } else if (this.speedUpX < 0) {
+      this.speedUpX = Math.min(0, this.speedUpX + this.speedUp / 2);
+    }
 
-    if (Math.abs(this.speedUpX) < 0.5) this.speedUpX = 0;
-    if (Math.abs(this.speedUpY) < 0.5) this.speedUpY = 0;
+    if (this.speedUpY > 0) {
+      this.speedUpY = Math.max(0, this.speedUpY - this.speedUp / 2);
+    } else if (this.speedUpY < 0) {
+      this.speedUpY = Math.min(0, this.speedUpY + this.speedUp / 2);
+    }
+
+    if (Math.abs(this.speedUpX) < 0.1) this.speedUpX = 0;
+    if (Math.abs(this.speedUpY) < 0.1) this.speedUpY = 0;
   };
 
   public move = (x = 0, y = 0) => {
