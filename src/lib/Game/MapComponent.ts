@@ -4,6 +4,7 @@ class MapComponent {
   private viewX: number;
   private viewY: number;
   private map: HTMLElement | null = null;
+  private viewAccelerationFactor = 6;
 
   constructor({
     width,
@@ -43,8 +44,8 @@ class MapComponent {
   }
 
   updateViewPosition(x: number, y: number, speedUpX: number, speedUpY: number) {
-    this.viewX = x;
-    this.viewY = y;
+    this.viewX = x - speedUpX * this.viewAccelerationFactor;
+    this.viewY = y - speedUpY * this.viewAccelerationFactor;
   }
 
   public startRendering() {

@@ -17,6 +17,7 @@ class PlayerComponent {
   private minY;
   private maxY;
   private renderTimer: NodeJS.Timer | undefined;
+  private viewAccelerationFactor = 6;
 
   private ketSet: {
     up: boolean;
@@ -197,6 +198,10 @@ class PlayerComponent {
       this.domElement.style.transform = `translate(${
         this.player.x - this.playerWidth / 2
       }px, ${this.player.y - this.playerHeight / 2}px)`;
+    } else {
+      this.domElement.style.transform = `translate(${
+        this.player.speedUpX * this.viewAccelerationFactor
+      }px, ${this.player.speedUpY * this.viewAccelerationFactor}px)`;
     }
   }
 
