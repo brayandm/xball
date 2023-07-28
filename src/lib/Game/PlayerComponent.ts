@@ -13,6 +13,9 @@ class PlayerComponent {
   private maxY;
   private renderTimer: NodeJS.Timer | undefined;
   private viewAccelerationFactor = 10;
+  private viewAccelerationSpeed = 0.1;
+  private viewAccelerationX = 0;
+  private viewAccelerationY = 0;
 
   private ketSet: {
     up: boolean;
@@ -173,9 +176,34 @@ class PlayerComponent {
 
       setInterval(() => {
         this.press();
+
+        if (this.player.speedUpX < this.viewAccelerationX) {
+          this.viewAccelerationX = Math.max(
+            this.player.speedUpX,
+            this.viewAccelerationX - this.viewAccelerationSpeed,
+          );
+        } else if (this.player.speedUpX > this.viewAccelerationX) {
+          this.viewAccelerationX = Math.min(
+            this.player.speedUpX,
+            this.viewAccelerationX + this.viewAccelerationSpeed,
+          );
+        }
+
+        if (this.player.speedUpY < this.viewAccelerationY) {
+          this.viewAccelerationY = Math.max(
+            this.player.speedUpY,
+            this.viewAccelerationY - this.viewAccelerationSpeed,
+          );
+        } else if (this.player.speedUpY > this.viewAccelerationY) {
+          this.viewAccelerationY = Math.min(
+            this.player.speedUpY,
+            this.viewAccelerationY + this.viewAccelerationSpeed,
+          );
+        }
+
         this.onUpdatePosition(
-          this.player.x - this.player.speedUpX * this.viewAccelerationFactor,
-          this.player.y - this.player.speedUpY * this.viewAccelerationFactor,
+          this.player.x - this.viewAccelerationX * this.viewAccelerationFactor,
+          this.player.y - this.viewAccelerationY * this.viewAccelerationFactor,
         );
       }, 1000 / 60);
     }
@@ -188,8 +216,8 @@ class PlayerComponent {
       }px, ${this.player.y - this.playerHeight / 2}px)`;
     } else {
       this.domElement.style.transform = `translate(${
-        this.player.speedUpX * this.viewAccelerationFactor
-      }px, ${this.player.speedUpY * this.viewAccelerationFactor}px)`;
+        this.viewAccelerationX * this.viewAccelerationFactor
+      }px, ${this.viewAccelerationY * this.viewAccelerationFactor}px)`;
     }
   }
 
