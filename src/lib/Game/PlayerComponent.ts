@@ -17,7 +17,7 @@ class PlayerComponent {
   private minY;
   private maxY;
   private renderTimer: NodeJS.Timer | undefined;
-  private viewAccelerationFactor = 6;
+  private viewAccelerationFactor;
 
   private ketSet: {
     up: boolean;
@@ -102,6 +102,7 @@ class PlayerComponent {
     maxX,
     minY,
     maxY,
+    viewAccelerationFactor,
   }: {
     id: string;
     x: number;
@@ -118,11 +119,13 @@ class PlayerComponent {
     maxX: number;
     minY: number;
     maxY: number;
+    viewAccelerationFactor: number;
   }) {
     this.minX = minX;
     this.maxX = maxX;
     this.minY = minY;
     this.maxY = maxY;
+    this.viewAccelerationFactor = viewAccelerationFactor;
 
     this.player = new Player({
       id,

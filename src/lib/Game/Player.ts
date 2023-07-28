@@ -20,7 +20,7 @@ class Player {
     y = 0,
     speedUpX = 0,
     speedUpY = 0,
-    maxSpeedUp = 10,
+    maxSpeedUp = 5,
     speedUp = 0.1,
     minX,
     maxX,

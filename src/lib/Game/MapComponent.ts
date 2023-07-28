@@ -4,19 +4,22 @@ class MapComponent {
   private viewX: number;
   private viewY: number;
   private map: HTMLElement | null = null;
-  private viewAccelerationFactor = 6;
+  public viewAccelerationFactor;
 
   constructor({
+    viewAccelerationFactor,
     width,
     height,
     viewX,
     viewY,
   }: {
+    viewAccelerationFactor: number;
     width: number;
     height: number;
     viewX: number;
     viewY: number;
   }) {
+    this.viewAccelerationFactor = viewAccelerationFactor;
     this.viewX = viewX;
     this.viewY = viewY;
     this.width = width;

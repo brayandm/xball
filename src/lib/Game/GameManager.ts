@@ -60,6 +60,7 @@ class GameManager {
       maxX: this.mapComponent.getMapWidth(),
       minY: 0,
       maxY: this.mapComponent.getMapHeight(),
+      viewAccelerationFactor: this.mapComponent.viewAccelerationFactor,
     });
 
     if (isMe) {
