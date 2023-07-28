@@ -42,7 +42,7 @@ class MapComponent {
     document.body.appendChild(this.map);
   }
 
-  updateViewPosition(x: number, y: number) {
+  updateViewPosition(x: number, y: number, speedUpX: number, speedUpY: number) {
     this.viewX = x;
     this.viewY = y;
   }

@@ -4,7 +4,12 @@ class PlayerComponent {
   private player: Player;
   private domElement: HTMLElement;
   private isControllable: boolean;
-  private onUpdatePosition: (x: number, y: number) => void;
+  private onUpdatePosition: (
+    x: number,
+    y: number,
+    speedUpX: number,
+    speedUpY: number,
+  ) => void;
   private playerWidth = 70;
   private playerHeight = 70;
   private minX;
@@ -101,7 +106,12 @@ class PlayerComponent {
     x: number;
     y: number;
     isControllable?: boolean;
-    onUpdatePosition?: (x: number, y: number) => void;
+    onUpdatePosition?: (
+      x: number,
+      y: number,
+      speedUpX: number,
+      speedUpY: number,
+    ) => void;
     parentComponent: HTMLElement;
     minX: number;
     maxX: number;
@@ -172,7 +182,12 @@ class PlayerComponent {
 
       setInterval(() => {
         this.press();
-        this.onUpdatePosition(this.player.x, this.player.y);
+        this.onUpdatePosition(
+          this.player.x,
+          this.player.y,
+          this.player.speedUpX,
+          this.player.speedUpY,
+        );
       }, 1000 / 60);
     }
   }
@@ -195,7 +210,14 @@ class PlayerComponent {
     this.refresh();
   }
 
-  public setOnUpdatePosition(onUpdatePosition: (x: number, y: number) => void) {
+  public setOnUpdatePosition(
+    onUpdatePosition: (
+      x: number,
+      y: number,
+      speedUpX: number,
+      speedUpY: number,
+    ) => void,
+  ) {
     this.onUpdatePosition = onUpdatePosition;
   }
 

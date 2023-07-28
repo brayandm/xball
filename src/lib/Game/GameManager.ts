@@ -63,8 +63,8 @@ class GameManager {
     });
 
     if (isMe) {
-      playerComponent.setOnUpdatePosition((x, y) => {
-        this.mapComponent.updateViewPosition(x, y);
+      playerComponent.setOnUpdatePosition((x, y, speedUpX, speedUpY) => {
+        this.mapComponent.updateViewPosition(x, y, speedUpX, speedUpY);
       });
     }
 
