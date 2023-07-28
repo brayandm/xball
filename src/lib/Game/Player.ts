@@ -21,7 +21,7 @@ class Player {
     speedUpX = 0,
     speedUpY = 0,
     maxSpeedUp = 10,
-    speedUp = 0.3,
+    speedUp = 0.1,
     minX,
     maxX,
     minY,
@@ -116,8 +116,8 @@ class Player {
       this.speedUpY = Math.min(0, this.speedUpY + this.speedUp / 2);
     }
 
-    if (Math.abs(this.speedUpX) < 0.1) this.speedUpX = 0;
-    if (Math.abs(this.speedUpY) < 0.1) this.speedUpY = 0;
+    if (Math.abs(this.speedUpX) < 0.01) this.speedUpX = 0;
+    if (Math.abs(this.speedUpY) < 0.01) this.speedUpY = 0;
   };
 
   public move = (x = 0, y = 0) => {
