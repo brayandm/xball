@@ -28,6 +28,12 @@ type removePlayerEvent = {
   id: string;
 };
 
+type keySetPlayerEvent = {
+  type: "keySetPlayer";
+  id: string;
+  keySet: boolean[];
+};
+
 class EventManager {
   private gameManager: GameManager;
   private webSocketManager: WebSocketManager;
@@ -47,8 +53,11 @@ class EventManager {
     let myPlayerComponent: PlayerComponent | undefined;
 
     const onMessage = (message: string) => {
-      const event: updatePlayerEvent | createPlayerEvent | removePlayerEvent =
-        JSON.parse(message);
+      const event:
+        | updatePlayerEvent
+        | createPlayerEvent
+        | removePlayerEvent
+        | keySetPlayerEvent = JSON.parse(message);
 
       if (event.type === "createPlayer") {
         if (event.isMe) {
@@ -84,6 +93,15 @@ class EventManager {
         }
       } else if (event.type === "removePlayer") {
         this.gameManager.removePlayerComponentById(event.id);
+      } else if (event.type === "keySetPlayer") {
+        console.log(event.keySet);
+        const playerComponent = this.gameManager.getPlayerComponentById(
+          event.id,
+        );
+
+        if (playerComponent) {
+          playerComponent.updateKeySet(event.keySet);
+        }
       }
     };
 
@@ -101,6 +119,17 @@ class EventManager {
           this.webSocketManager.sendMessage(JSON.stringify(event));
         }
       }, 1000 / this.fps);
+
+      // setInterval(() => {
+      //   if (myPlayerComponent) {
+      //     const event = {
+      //       type: "keySetPlayer",
+      //       keySet: myPlayerComponent.getKeySet(),
+      //     };
+
+      //     this.webSocketManager.sendMessage(JSON.stringify(event));
+      //   }
+      // }, 1000 / this.);
     };
 
     this.webSocketManager.setOnMessageCallback(onMessage);
