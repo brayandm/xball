@@ -94,7 +94,6 @@ class EventManager {
       } else if (event.type === "removePlayer") {
         this.gameManager.removePlayerComponentById(event.id);
       } else if (event.type === "keySetPlayer") {
-        console.log(event.keySet);
         const playerComponent = this.gameManager.getPlayerComponentById(
           event.id,
         );
@@ -118,6 +117,10 @@ class EventManager {
           this.webSocketManager.sendMessage(JSON.stringify(event));
         }
       }, this.sendPositionInterval);
+
+      setInterval(() => {
+        this.webSocketManager.displayDataFlowStatistics();
+      }, 1000);
     };
 
     this.webSocketManager.setOnMessageCallback(onMessage);

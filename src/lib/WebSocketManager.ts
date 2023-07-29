@@ -4,6 +4,8 @@ class WebSocketManager {
   private onOpenConnectionCallback: () => void;
   private onCloseConnectionCallback: () => void;
   private onErrorMessageCallback: () => void;
+  private bytesReceived = 0;
+  private bytesSent = 0;
 
   constructor({
     webSocketUrl,
@@ -52,11 +54,13 @@ class WebSocketManager {
     };
 
     this.webSocket.onmessage = (event) => {
+      this.bytesReceived += event.data.toString().length;
       this.onMessageCallback(event.data.toString());
     };
   }
 
   public sendMessage(message: string) {
+    this.bytesSent += message.length;
     this.webSocket.send(message);
   }
 
@@ -78,6 +82,30 @@ class WebSocketManager {
 
   public setOnErrorMessageCallback(callback: () => void) {
     this.onErrorMessageCallback = callback;
+  }
+
+  public displayDataFlowStatistics() {
+    console.log("Data flow statistics:");
+    console.log(
+      `Bytes total ${this.bytesSent + this.bytesReceived} | Bytes sent: ${
+        this.bytesSent
+      } | Bytes received: ${this.bytesReceived}`,
+    );
+    console.log(
+      `Kilobytes total ${
+        (this.bytesSent + this.bytesReceived) / 1024
+      } | Kilobytes sent: ${this.bytesSent / 1024} | Kilobytes received: ${
+        this.bytesReceived / 1024
+      }`,
+    );
+    console.log(
+      `Megabytes total ${
+        (this.bytesSent + this.bytesReceived) / 1024 / 1024
+      } | Megabytes sent: ${
+        this.bytesSent / 1024 / 1024
+      } | Megabytes received: ${this.bytesReceived / 1024 / 1024}`,
+    );
+    console.log("\n");
   }
 }
 
