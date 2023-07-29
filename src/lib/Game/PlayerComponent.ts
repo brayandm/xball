@@ -171,9 +171,9 @@ class PlayerComponent {
     this.domElement.classList.add("player");
 
     if (this.isControllable) {
-      let keySetChange = false;
-
       window.addEventListener("keydown", (event) => {
+        let keySetChange = false;
+
         if (
           this.keySet.up === false &&
           (event.key === "ArrowUp" || event.key.toLowerCase() === "w")
@@ -202,9 +202,19 @@ class PlayerComponent {
           this.keySet.right = true;
           keySetChange = true;
         }
+
+        if (keySetChange) {
+          this.onKeySetChange([
+            this.keySet.up,
+            this.keySet.down,
+            this.keySet.left,
+            this.keySet.right,
+          ]);
+        }
       });
 
       window.addEventListener("keyup", (event) => {
+        let keySetChange = false;
         if (
           this.keySet.up === true &&
           (event.key === "ArrowUp" || event.key.toLowerCase() === "w")
@@ -233,16 +243,16 @@ class PlayerComponent {
           this.keySet.right = false;
           keySetChange = true;
         }
-      });
 
-      if (keySetChange) {
-        this.onKeySetChange([
-          this.keySet.up,
-          this.keySet.down,
-          this.keySet.left,
-          this.keySet.right,
-        ]);
-      }
+        if (keySetChange) {
+          this.onKeySetChange([
+            this.keySet.up,
+            this.keySet.down,
+            this.keySet.left,
+            this.keySet.right,
+          ]);
+        }
+      });
 
       setInterval(() => {
         this.press();
@@ -303,6 +313,10 @@ class PlayerComponent {
 
   public setOnUpdatePosition(onUpdatePosition: (x: number, y: number) => void) {
     this.onUpdatePosition = onUpdatePosition;
+  }
+
+  public setOnKeySetChange(onKeySetChange: (keySet: boolean[]) => void) {
+    this.onKeySetChange = onKeySetChange;
   }
 
   public destroy() {

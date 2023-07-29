@@ -52,6 +52,14 @@ class EventManager {
   public start() {
     let myPlayerComponent: PlayerComponent | undefined;
 
+    const onKeySetChange = (keySet: boolean[]) => {
+      const event = {
+        type: "keySetPlayer",
+        keySet: keySet,
+      };
+      this.webSocketManager.sendMessage(JSON.stringify(event));
+    };
+
     const onMessage = (message: string) => {
       const event:
         | updatePlayerEvent
@@ -73,6 +81,7 @@ class EventManager {
 
         if (event.isMe) {
           myPlayerComponent = player;
+          myPlayerComponent.setOnKeySetChange(onKeySetChange);
         }
       } else if (event.type === "updatePlayer") {
         const playerComponent = this.gameManager.getPlayerComponentById(
@@ -119,17 +128,6 @@ class EventManager {
           this.webSocketManager.sendMessage(JSON.stringify(event));
         }
       }, 1000 / this.fps);
-
-      // setInterval(() => {
-      //   if (myPlayerComponent) {
-      //     const event = {
-      //       type: "keySetPlayer",
-      //       keySet: myPlayerComponent.getKeySet(),
-      //     };
-
-      //     this.webSocketManager.sendMessage(JSON.stringify(event));
-      //   }
-      // }, 1000 / this.);
     };
 
     this.webSocketManager.setOnMessageCallback(onMessage);
