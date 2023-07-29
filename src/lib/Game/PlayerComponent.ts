@@ -5,6 +5,7 @@ class PlayerComponent {
   private domElement: HTMLElement;
   private isControllable: boolean;
   private onUpdatePosition: (x: number, y: number) => void;
+  private onKeySetChange: (keySet: boolean[]) => void;
   private playerWidth = 70;
   private playerHeight = 70;
   private minX;
@@ -108,6 +109,9 @@ class PlayerComponent {
     onUpdatePosition = () => {
       return;
     },
+    onKeySetChange = () => {
+      return;
+    },
     parentComponent,
     minX,
     maxX,
@@ -119,6 +123,7 @@ class PlayerComponent {
     y: number;
     isControllable?: boolean;
     onUpdatePosition?: (x: number, y: number) => void;
+    onKeySetChange?: (keySet: boolean[]) => void;
     parentComponent: HTMLElement;
     minX: number;
     maxX: number;
@@ -149,6 +154,7 @@ class PlayerComponent {
       right: false,
     };
     this.onUpdatePosition = onUpdatePosition;
+    this.onKeySetChange = onKeySetChange;
 
     this.domElement = document.createElement("div");
     this.refresh();
@@ -165,51 +171,78 @@ class PlayerComponent {
     this.domElement.classList.add("player");
 
     if (this.isControllable) {
+      let keySetChange = false;
+
       window.addEventListener("keydown", (event) => {
         if (
           this.keySet.up === false &&
           (event.key === "ArrowUp" || event.key.toLowerCase() === "w")
-        )
+        ) {
           this.keySet.up = true;
+          keySetChange = true;
+        }
         if (
           this.keySet.down === false &&
           (event.key === "ArrowDown" || event.key.toLowerCase() === "s")
-        )
+        ) {
           this.keySet.down = true;
+          keySetChange = true;
+        }
         if (
           this.keySet.left === false &&
           (event.key === "ArrowLeft" || event.key.toLowerCase() === "a")
-        )
+        ) {
           this.keySet.left = true;
+          keySetChange = true;
+        }
         if (
           this.keySet.right === false &&
           (event.key === "ArrowRight" || event.key.toLowerCase() === "d")
-        )
+        ) {
           this.keySet.right = true;
+          keySetChange = true;
+        }
       });
 
       window.addEventListener("keyup", (event) => {
         if (
           this.keySet.up === true &&
           (event.key === "ArrowUp" || event.key.toLowerCase() === "w")
-        )
+        ) {
           this.keySet.up = false;
+          keySetChange = true;
+        }
         if (
           this.keySet.down === true &&
           (event.key === "ArrowDown" || event.key.toLowerCase() === "s")
-        )
+        ) {
           this.keySet.down = false;
+          keySetChange = true;
+        }
         if (
           this.keySet.left === true &&
           (event.key === "ArrowLeft" || event.key.toLowerCase() === "a")
-        )
+        ) {
           this.keySet.left = false;
+          keySetChange = true;
+        }
         if (
           this.keySet.right === true &&
           (event.key === "ArrowRight" || event.key.toLowerCase() === "d")
-        )
+        ) {
           this.keySet.right = false;
+          keySetChange = true;
+        }
       });
+
+      if (keySetChange) {
+        this.onKeySetChange([
+          this.keySet.up,
+          this.keySet.down,
+          this.keySet.left,
+          this.keySet.right,
+        ]);
+      }
 
       setInterval(() => {
         this.press();
