@@ -17,7 +17,7 @@ class PlayerComponent {
   private viewAccelerationX = 0;
   private viewAccelerationY = 0;
 
-  private ketSet: {
+  private keySet: {
     up: boolean;
     down: boolean;
     left: boolean;
@@ -53,6 +53,19 @@ class PlayerComponent {
       x: this.getX(),
       y: this.getY(),
     };
+  }
+
+  public updateKeySet(keySet: boolean[]) {
+    this.keySet = {
+      up: keySet[0],
+      down: keySet[1],
+      left: keySet[2],
+      right: keySet[3],
+    };
+  }
+
+  public getKeySet() {
+    return this.keySet;
   }
 
   public updatePosition(x: number, y: number) {
@@ -129,7 +142,7 @@ class PlayerComponent {
       playerHeight: this.playerHeight,
     });
     this.isControllable = isControllable;
-    this.ketSet = {
+    this.keySet = {
       up: false,
       down: false,
       left: false,
@@ -153,25 +166,49 @@ class PlayerComponent {
 
     if (this.isControllable) {
       window.addEventListener("keydown", (event) => {
-        if (event.key === "ArrowUp" || event.key.toLowerCase() === "w")
-          this.ketSet.up = true;
-        if (event.key === "ArrowDown" || event.key.toLowerCase() === "s")
-          this.ketSet.down = true;
-        if (event.key === "ArrowLeft" || event.key.toLowerCase() === "a")
-          this.ketSet.left = true;
-        if (event.key === "ArrowRight" || event.key.toLowerCase() === "d")
-          this.ketSet.right = true;
+        if (
+          this.keySet.up === false &&
+          (event.key === "ArrowUp" || event.key.toLowerCase() === "w")
+        )
+          this.keySet.up = true;
+        if (
+          this.keySet.down === false &&
+          (event.key === "ArrowDown" || event.key.toLowerCase() === "s")
+        )
+          this.keySet.down = true;
+        if (
+          this.keySet.left === false &&
+          (event.key === "ArrowLeft" || event.key.toLowerCase() === "a")
+        )
+          this.keySet.left = true;
+        if (
+          this.keySet.right === false &&
+          (event.key === "ArrowRight" || event.key.toLowerCase() === "d")
+        )
+          this.keySet.right = true;
       });
 
       window.addEventListener("keyup", (event) => {
-        if (event.key === "ArrowUp" || event.key.toLowerCase() === "w")
-          this.ketSet.up = false;
-        if (event.key === "ArrowDown" || event.key.toLowerCase() === "s")
-          this.ketSet.down = false;
-        if (event.key === "ArrowLeft" || event.key.toLowerCase() === "a")
-          this.ketSet.left = false;
-        if (event.key === "ArrowRight" || event.key.toLowerCase() === "d")
-          this.ketSet.right = false;
+        if (
+          this.keySet.up === true &&
+          (event.key === "ArrowUp" || event.key.toLowerCase() === "w")
+        )
+          this.keySet.up = false;
+        if (
+          this.keySet.down === true &&
+          (event.key === "ArrowDown" || event.key.toLowerCase() === "s")
+        )
+          this.keySet.down = false;
+        if (
+          this.keySet.left === true &&
+          (event.key === "ArrowLeft" || event.key.toLowerCase() === "a")
+        )
+          this.keySet.left = false;
+        if (
+          this.keySet.right === true &&
+          (event.key === "ArrowRight" || event.key.toLowerCase() === "d")
+        )
+          this.keySet.right = false;
       });
 
       setInterval(() => {
@@ -222,7 +259,7 @@ class PlayerComponent {
   }
 
   private press() {
-    this.player.press(this.ketSet);
+    this.player.press(this.keySet);
     this.refresh();
   }
 
