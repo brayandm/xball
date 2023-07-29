@@ -37,16 +37,16 @@ type keySetPlayerEvent = {
 class EventManager {
   private gameManager: GameManager;
   private webSocketManager: WebSocketManager;
-  private fps: number = 60;
+  private sendPositionInterval: number;
 
   constructor(
     gameManager: GameManager,
     webSocketManager: WebSocketManager,
-    fps: number = 60,
+    sendPositionInterval: number = 1000,
   ) {
     this.gameManager = gameManager;
     this.webSocketManager = webSocketManager;
-    this.fps = fps;
+    this.sendPositionInterval = sendPositionInterval;
   }
 
   public start() {
@@ -89,16 +89,7 @@ class EventManager {
         );
 
         if (playerComponent) {
-          if (this.fps === 60) {
-            playerComponent.updatePosition(event.x, event.y);
-          } else {
-            playerComponent.updateAndPredictPosition(
-              event.x,
-              event.y,
-              event.accelerationX,
-              event.accelerationY,
-            );
-          }
+          playerComponent.updatePosition(event.x, event.y);
         }
       } else if (event.type === "removePlayer") {
         this.gameManager.removePlayerComponentById(event.id);
@@ -124,10 +115,9 @@ class EventManager {
             accelerationX: myPlayerComponent.getAccelerationX(),
             accelerationY: myPlayerComponent.getAccelerationY(),
           };
-
           this.webSocketManager.sendMessage(JSON.stringify(event));
         }
-      }, 1000 / this.fps);
+      }, this.sendPositionInterval);
     };
 
     this.webSocketManager.setOnMessageCallback(onMessage);

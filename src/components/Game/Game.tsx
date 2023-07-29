@@ -30,7 +30,7 @@ export default function Game() {
     new EventManager(
       gameManager,
       webSocketManager,
-      Number(process.env.NEXT_PUBLIC_FPS!),
+      Number(process.env.NEXT_PUBLIC_SEND_POSITION_INTERVAL!),
     ),
   );
 

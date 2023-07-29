@@ -157,7 +157,6 @@ class PlayerComponent {
     this.onKeySetChange = onKeySetChange;
 
     this.domElement = document.createElement("div");
-    this.refresh();
 
     if (this.isControllable) {
       this.domElement.style.position = "fixed";
@@ -169,6 +168,8 @@ class PlayerComponent {
     }
 
     this.domElement.classList.add("player");
+
+    this.refresh();
 
     if (this.isControllable) {
       window.addEventListener("keydown", (event) => {
@@ -285,6 +286,10 @@ class PlayerComponent {
           this.player.x - this.viewAccelerationX * this.viewAccelerationFactor,
           this.player.y - this.viewAccelerationY * this.viewAccelerationFactor,
         );
+      }, 1000 / 60);
+    } else {
+      setInterval(() => {
+        this.press();
       }, 1000 / 60);
     }
   }
