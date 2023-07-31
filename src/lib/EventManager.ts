@@ -89,7 +89,7 @@ class EventManager {
         );
 
         if (playerComponent) {
-          playerComponent.updatePosition(event.x, event.y);
+          playerComponent.update(event.x, event.y);
         }
       } else if (event.type === "removePlayer") {
         this.gameManager.removePlayerComponentById(event.id);
