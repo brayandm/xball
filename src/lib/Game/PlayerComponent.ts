@@ -221,6 +221,41 @@ class PlayerComponent {
         }
       });
 
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) {
+          let keySetChange = false;
+
+          if (this.keySet.up === true) {
+            this.keySet.up = false;
+            keySetChange = true;
+          }
+
+          if (this.keySet.down === true) {
+            this.keySet.down = false;
+            keySetChange = true;
+          }
+
+          if (this.keySet.left === true) {
+            this.keySet.left = false;
+            keySetChange = true;
+          }
+
+          if (this.keySet.right === true) {
+            this.keySet.right = false;
+            keySetChange = true;
+          }
+
+          if (keySetChange) {
+            this.onKeySetChange([
+              this.keySet.up,
+              this.keySet.down,
+              this.keySet.left,
+              this.keySet.right,
+            ]);
+          }
+        }
+      });
+
       setInterval(() => {
         this.press();
 
