@@ -69,38 +69,6 @@ class PlayerComponent {
     return this.keySet;
   }
 
-  public updatePosition(x: number, y: number) {
-    this.player.x = x;
-    this.player.y = y;
-
-    this.refresh();
-  }
-
-  public updateAndPredictPosition(
-    x: number,
-    y: number,
-    accelerationX: number,
-    accelerationY: number,
-  ) {
-    if (this.renderTimer) {
-      clearInterval(this.renderTimer);
-    }
-
-    this.player.x = x;
-    this.player.y = y;
-    this.player.speedUpX = accelerationX;
-    this.player.speedUpY = accelerationY;
-
-    this.refresh();
-
-    this.renderTimer = setInterval(() => {
-      this.player.x += this.player.speedUpX;
-      this.player.y += this.player.speedUpY;
-
-      this.refresh();
-    }, 1000 / 60);
-  }
-
   constructor({
     id,
     x,
@@ -168,8 +136,6 @@ class PlayerComponent {
     }
 
     this.domElement.classList.add("player");
-
-    this.refresh();
 
     if (this.isControllable) {
       window.addEventListener("keydown", (event) => {
@@ -294,7 +260,7 @@ class PlayerComponent {
     }
   }
 
-  private refresh() {
+  public render() {
     if (!this.isControllable) {
       this.domElement.style.transform = `translate(${
         this.player.x - this.playerWidth / 2
@@ -308,12 +274,10 @@ class PlayerComponent {
 
   private press() {
     this.player.press(this.keySet);
-    this.refresh();
   }
 
   public update(x: number, y: number) {
     this.player.move(x, y);
-    this.refresh();
   }
 
   public setOnUpdatePosition(onUpdatePosition: (x: number, y: number) => void) {

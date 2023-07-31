@@ -8,7 +8,12 @@ class GameManager {
   constructor({ mapComponent }: { mapComponent: MapComponent }) {
     this.mapComponent = mapComponent;
 
-    this.mapComponent.startRendering();
+    setInterval(() => {
+      this.playerComponents.forEach((playerComponent) => {
+        playerComponent.render();
+      });
+      this.mapComponent.render();
+    }, 1000 / 60);
   }
 
   public getMapComponent() {
