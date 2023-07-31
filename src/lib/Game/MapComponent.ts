@@ -47,12 +47,6 @@ class MapComponent {
     this.viewY = viewY;
   }
 
-  public startRendering() {
-    setInterval(() => {
-      this.render();
-    }, 1000 / 60);
-  }
-
   public render() {
     if (this.map) {
       this.map.style.transform = `translate(${
