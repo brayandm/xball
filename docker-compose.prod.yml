@@ -13,5 +13,5 @@ services:
     command: npm run start
 
 networks:
-  xball:
+  xbal:
     driver: bridge
